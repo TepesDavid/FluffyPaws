@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const requestsSection = document.getElementById('requestsSection');
     const profileNavLinks = document.querySelectorAll('.profile-nav a[data-section]');
     const dropdownFavoritesLink = document.getElementById('navFavoritesLink');
+    const dropdownRequestsLink = document.getElementById('navRequestsLink');
 
     function setActiveSection(section) {
         if (profileSection) profileSection.style.display = section === 'profile' ? 'block' : 'none';
@@ -64,6 +65,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             dropdownFavoritesLink.setAttribute('href', 'profile.html#favoritesSection');
+        });
+    }
+
+    if (dropdownRequestsLink) {
+        dropdownRequestsLink.addEventListener('click', (e) => {
+            const onProfile = window.location.pathname.endsWith('profile.html');
+            if (onProfile) {
+                e.preventDefault();
+                setActiveSection('requests');
+                window.location.hash = '#requestsSection';
+                return;
+            }
+            dropdownRequestsLink.setAttribute('href', 'profile.html#requestsSection');
         });
     }
 
@@ -218,19 +232,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const uid = user ? user.uid : null;
-            const email = user ? user.email : null;
-
-            const requestsMap = new Map();
-            if (uid) {
-                const reqSnap = await db.collection('adoptionRequests').where('userId', '==', uid).get();
-                reqSnap.docs.forEach(doc => requestsMap.set(doc.id, { id: doc.id, ...doc.data() }));
-            }
-            if (email) {
-                const emailSnap = await db.collection('adoptionRequests').where('userEmail', '==', email).get();
-                emailSnap.docs.forEach(doc => requestsMap.set(doc.id, { id: doc.id, ...doc.data() }));
+            if (!uid) {
+                requestsEmpty.style.display = 'block';
+                return;
             }
 
-            const requests = Array.from(requestsMap.values());
+            const reqSnap = await db.collection('adoptionRequests').where('userId', '==', uid).get();
+            const requests = reqSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             if (requests.length === 0) {
                 requestsEmpty.style.display = 'block';
                 return;

@@ -94,6 +94,7 @@
                 <a href="#" class="active" data-section="users"><i class="fas fa-users"></i> Utilizatori</a>
                 <a href="#" data-section="animals"><i class="fas fa-paw"></i> Animale</a>
                 <a href="#" data-section="requests"><i class="fas fa-file-alt"></i> Cereri Adoptie</a>
+                <a href="#" data-section="messages"><i class="fas fa-inbox"></i> Mesaje</a>
                 <a href="#" data-section="stats"><i class="fas fa-chart-bar"></i> Statistici</a>
                 <div class="divider" style="height:1px; background:rgba(255,255,255,0.1); margin:10px 0;"></div>
                 <a href="#" class="logout-link" id="adminLogoutBtn" style="color:var(--danger);"><i class="fas fa-sign-out-alt"></i> Deconectare</a>
@@ -358,6 +359,21 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Messages Section -->
+            <section class="admin-section" id="adminSectionMessages" style="display: none;">
+                <div class="admin-header">
+                    <h1>Mesaje Contact</h1>
+                </div>
+                <div class="inbox-layout">
+                    <div class="inbox-list" id="messagesList">
+                        <!-- Incarcate prin admin.js -->
+                    </div>
+                    <div class="inbox-preview" id="messagesPreview">
+                        <div class="inbox-empty">Selecteaza un mesaj pentru a vedea detaliile.</div>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 
@@ -554,4 +570,5 @@
     <script src="js/main.js"></script>
 </body>
 </html>
+
 

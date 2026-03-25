@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadUsers();
         loadAnimals();
         initRequestsInbox();
+        initMessagesInbox();
         initSidebarNav();
     });
 
@@ -456,6 +457,112 @@ document.addEventListener('DOMContentLoaded', () => {
         loadRequests();
     }
 
+    // Mesaje contact (inbox)
+    let allMessages = [];
+    let activeMessageId = null;
+    let messagesListEl = null;
+    let messagesPreviewEl = null;
+
+    function initMessagesInbox() {
+        messagesListEl = document.getElementById('messagesList');
+        messagesPreviewEl = document.getElementById('messagesPreview');
+        if (!messagesListEl || !messagesPreviewEl) return;
+
+        messagesListEl.addEventListener('click', (e) => {
+            const item = e.target.closest('.inbox-item');
+            if (!item) return;
+            const id = item.getAttribute('data-id');
+            if (!id) return;
+            setActiveMessage(id);
+        });
+
+        loadMessages();
+    }
+
+    async function loadMessages() {
+        if (!messagesListEl || !messagesPreviewEl) return;
+
+        messagesListEl.innerHTML = `<div class="inbox-empty"><i class="fas fa-spinner fa-spin"></i> Se incarca mesajele...</div>`;
+        messagesPreviewEl.innerHTML = `<div class="inbox-empty">Selecteaza un mesaj pentru a vedea detaliile.</div>`;
+
+        try {
+            let snap;
+            try {
+                snap = await db.collection('messages').orderBy('createdAt', 'desc').get();
+            } catch (err) {
+                snap = await db.collection('messages').get();
+            }
+
+            allMessages = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            allMessages.sort((a, b) => getTimestampMs(b.createdAt) - getTimestampMs(a.createdAt));
+
+            if (allMessages.length === 0) {
+                messagesListEl.innerHTML = `<div class="inbox-empty">Nu exista mesaje momentan.</div>`;
+                return;
+            }
+
+            renderMessagesList();
+            setActiveMessage(allMessages[0].id);
+        } catch (err) {
+            console.error('Eroare incarcare mesaje:', err);
+            messagesListEl.innerHTML = `<div class="inbox-empty">Eroare la incarcarea mesajelor.</div>`;
+        }
+    }
+
+    function renderMessagesList() {
+        if (!messagesListEl) return;
+        messagesListEl.innerHTML = allMessages.map(msg => {
+            const subject = msg.subject || 'Mesaj de contact';
+            const name = msg.name || 'Anonim';
+            const email = msg.email || msg.userEmail || 'Email necunoscut';
+            const dateLabel = formatDate(msg.createdAt);
+            const meta = dateLabel ? `${name} · ${email} · ${dateLabel}` : `${name} · ${email}`;
+            const snippet = buildSnippet(msg.message || '');
+
+            return `
+                <div class="inbox-item${msg.id === activeMessageId ? ' active' : ''}" data-id="${msg.id}">
+                    <div class="subject">${escapeHtml(subject)}</div>
+                    <div class="meta">${escapeHtml(meta)}</div>
+                    ${snippet ? `<div class="meta" style="margin-top:6px;">${escapeHtml(snippet)}</div>` : ''}
+                </div>
+            `;
+        }).join('');
+    }
+
+    function setActiveMessage(id) {
+        activeMessageId = id;
+        if (messagesListEl) {
+            messagesListEl.querySelectorAll('.inbox-item').forEach(item => {
+                item.classList.toggle('active', item.getAttribute('data-id') === id);
+            });
+        }
+
+        const msg = allMessages.find(m => m.id === id);
+        if (msg) renderMessagePreview(msg);
+    }
+
+    function renderMessagePreview(msg) {
+        if (!messagesPreviewEl) return;
+        const subject = msg.subject || 'Mesaj de contact';
+        const name = msg.name || 'Anonim';
+        const email = msg.email || msg.userEmail || 'Email necunoscut';
+        const dateLabel = formatDate(msg.createdAt);
+
+        messagesPreviewEl.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap;">
+                <div>
+                    <h3 style="margin-bottom:6px;">${escapeHtml(subject)}</h3>
+                    <div style="color:var(--text-gray); font-size:0.9rem;">
+                        ${escapeHtml(name)} · ${escapeHtml(email)}${dateLabel ? ` · ${escapeHtml(dateLabel)}` : ''}
+                    </div>
+                </div>
+                <span class="status-badge status-pending">Nou</span>
+            </div>
+            <div class="divider" style="height:1px; background:rgba(0,0,0,0.08); margin:16px 0;"></div>
+            <p style="color:var(--text-gray); line-height:1.7;">${escapeHtml(msg.message || '-')}</p>
+        `;
+    }
+
     async function loadRequests() {
         if (!requestsListEl || !requestsPreviewEl) return;
 
@@ -716,6 +823,7 @@ document.addEventListener('DOMContentLoaded', () => {
             users: document.getElementById('adminSectionUsers'),
             animals: document.getElementById('adminSectionAnimals'),
             requests: document.getElementById('adminSectionRequests'),
+            messages: document.getElementById('adminSectionMessages'),
             stats: document.getElementById('adminSectionStats')
         };
 

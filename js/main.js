@@ -173,6 +173,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     const guestActions = document.getElementById('guestActions');
     const userActions = document.getElementById('userActions');
+    const navContainer = document.querySelector('.nav-container');
+    const navMenu = document.getElementById('navMenu');
+    const navActions = document.getElementById('navActions');
 
     // Afisare corecta in functie de starea de autentificare
     if (guestActions && userActions) {
@@ -183,6 +186,38 @@ document.addEventListener("DOMContentLoaded", function() {
             guestActions.style.display = 'flex';
             userActions.style.display = 'none';
         }
+    }
+
+    // Injectam hamburger daca lipseste
+    if (navContainer && !navContainer.querySelector('.hamburger')) {
+        const btn = document.createElement('button');
+        btn.className = 'hamburger';
+        btn.id = 'hamburger';
+        btn.innerHTML = '<span></span><span></span><span></span>';
+        navContainer.appendChild(btn);
+    }
+
+    const hamburger = document.getElementById('hamburger');
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function() {
+            navMenu.classList.toggle('show');
+            hamburger.classList.toggle('active');
+        });
+
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('show');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            const target = e.target;
+            if (!hamburger.contains(target) && !navMenu.contains(target) && !(navActions && navActions.contains(target))) {
+                navMenu.classList.remove('show');
+                hamburger.classList.remove('active');
+            }
+        });
     }
 
     // Toggle Dropdown
