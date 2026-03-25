@@ -3468,3 +3468,8 @@ html.is-logged-in #userActions {
 }
 
 .mt-4 { margin-top: var(--space-xl); }
+
+/* Hide close button on desktop implicitly */
+.menu-close-btn {
+    display: none;
+}

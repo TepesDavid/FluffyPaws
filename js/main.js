@@ -188,13 +188,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Injectam hamburger daca lipseste
-    if (navContainer && !navContainer.querySelector('.hamburger')) {
-        const btn = document.createElement('button');
-        btn.className = 'hamburger';
-        btn.id = 'hamburger';
-        btn.innerHTML = '<span></span><span></span><span></span>';
-        navContainer.appendChild(btn);
+    // Injectam hamburger daca lipseste, sau corectam plasarea daca a fost pus in interiorul navActions
+    if (navContainer) {
+        let hamburgerBtn = navContainer.querySelector('.hamburger');
+        if (!hamburgerBtn) {
+            hamburgerBtn = document.createElement('button');
+            hamburgerBtn.className = 'hamburger';
+            hamburgerBtn.id = 'hamburger';
+            hamburgerBtn.innerHTML = '<span></span><span></span><span></span>';
+            navContainer.appendChild(hamburgerBtn);
+        } else if (hamburgerBtn.parentElement !== navContainer) {
+            navContainer.appendChild(hamburgerBtn);
+        }
     }
 
     const hamburger = document.getElementById('hamburger');
