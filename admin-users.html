@@ -1,0 +1,557 @@
+﻿<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Gestionare Utilizatori - FluffyPaws</title>
+    <link rel="icon" type="image/png" href="images/paw-prints-removebg-preview.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script>if(localStorage.getItem('isLoggedIn') === 'true') document.documentElement.classList.add('is-logged-in');</script>
+    <style>
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+        .admin-layout {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+        .admin-sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .admin-content {
+            height: 100vh;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+        .admin-section {
+            margin-top: 3rem;
+        }
+        .inbox-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: var(--space-lg);
+        }
+        .inbox-list {
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .inbox-item {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .inbox-item:hover {
+            background: rgba(0,0,0,0.03);
+        }
+        .inbox-item.active {
+            background: rgba(255,107,53,0.08);
+        }
+        .inbox-item .subject {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        .inbox-item .meta {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            margin-top: 4px;
+        }
+        .inbox-preview {
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: var(--space-lg);
+            min-height: 260px;
+        }
+        .inbox-empty {
+            color: var(--text-gray);
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        .admin-table-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ADMIN LAYOUT -->
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar" id="adminSidebar">
+            <h3>Panou Admin</h3>
+            <nav class="admin-nav">
+                <a href="#" class="active" data-section="users"><i class="fas fa-users"></i> Utilizatori</a>
+                <a href="#" data-section="animals"><i class="fas fa-paw"></i> Animale</a>
+                <a href="#" data-section="requests"><i class="fas fa-file-alt"></i> Cereri Adoptie</a>
+                <a href="#" data-section="stats"><i class="fas fa-chart-bar"></i> Statistici</a>
+                <div class="divider" style="height:1px; background:rgba(255,255,255,0.1); margin:10px 0;"></div>
+                <a href="#" class="logout-link" id="adminLogoutBtn" style="color:var(--danger);"><i class="fas fa-sign-out-alt"></i> Deconectare</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-content">
+            <section id="adminSectionUsers">
+            <div class="admin-header">
+                <h1>Gestionare Utilizatori</h1>
+                <button class="btn btn-primary" onclick="openModal('addUserModal')">
+                    <i class="fas fa-user-plus"></i> Adauga Utilizator
+                </button>
+            </div>
+
+            <!-- Users Table -->
+            <div class="table-wrapper">
+                <div class="table-header">
+                    <h3>Lista Utilizatori</h3>
+                    <div style="display: flex; gap: var(--space-sm);">
+                        <input type="text" id="adminSearchInput" class="form-control" placeholder="Cauta utilizator..." style="width: 250px; padding: 8px 12px;">
+                        <select id="adminRoleFilter" class="form-control" style="width: auto; padding: 8px 32px 8px 12px;">
+                            <option value="">Toate Rolurile</option>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                            <option value="guest">Guest</option>
+                        </select>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Utilizator</th>
+                            <th>Email</th>
+                            <th>Rol</th>
+                            <th>Status</th>
+                            <th>Data Inregistrarii</th>
+                            <th>Actiuni</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <!-- Incarcate prin admin.js -->
+                    </tbody>
+                </table>
+            </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="admin-section" id="adminSectionStats" style="display: none;">
+                <div class="admin-header">
+                    <h1>Statistici</h1>
+                </div>
+                <div class="admin-stats-row">
+                    <div class="admin-stat-card">
+                        <div class="stat-icon" style="background: rgba(255,107,53,0.1); color: var(--primary);">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4 id="statTotal">-</h4>
+                            <p>Total Utilizatori</p>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon" style="background: rgba(46,213,115,0.1); color: var(--accent-green);">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4 id="statActive">-</h4>
+                            <p>Conturi Active</p>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon" style="background: rgba(255,107,107,0.1); color: var(--danger);">
+                            <i class="fas fa-user-slash"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4 id="statDisabled">-</h4>
+                            <p>Conturi Dezactivate</p>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon" style="background: rgba(0,78,137,0.1); color: var(--secondary);">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4 id="statAdmins">-</h4>
+                            <p>Administratori</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-charts-grid">
+                    <div class="admin-chart-card">
+                        <div class="chart-header">
+                            <h3>Utilizatori pe roluri</h3>
+                            <p>Distribuția conturilor înregistrate</p>
+                        </div>
+                        <div class="chart-bars">
+                            <div class="chart-bar">
+                                <div class="bar-meta">
+                                    <span class="bar-label">Admin</span>
+                                    <span class="bar-value" id="chartUsersAdminsValue">0</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-secondary" id="chartUsersAdminsBar"></div>
+                                </div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="bar-meta">
+                                    <span class="bar-label">Utilizatori</span>
+                                    <span class="bar-value" id="chartUsersUsersValue">0</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-primary" id="chartUsersUsersBar"></div>
+                                </div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="bar-meta">
+                                    <span class="bar-label">Guest</span>
+                                    <span class="bar-value" id="chartUsersGuestsValue">0</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-warning" id="chartUsersGuestsBar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-chart-card">
+                        <div class="chart-header">
+                            <h3>Cereri pe status</h3>
+                            <p>In asteptare vs confirmate vs respinse</p>
+                        </div>
+                        <div class="chart-bars">
+                            <div class="chart-bar">
+                                <div class="bar-meta">
+                                    <span class="bar-label">In asteptare</span>
+                                    <span class="bar-value" id="chartRequestsPendingValue">0</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-warning" id="chartRequestsPendingBar"></div>
+                                </div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="bar-meta">
+                                    <span class="bar-label">Confirmate</span>
+                                    <span class="bar-value" id="chartRequestsApprovedValue">0</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-success" id="chartRequestsApprovedBar"></div>
+                                </div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="bar-meta">
+                                    <span class="bar-label">Respinse</span>
+                                    <span class="bar-value" id="chartRequestsRejectedValue">0</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-danger" id="chartRequestsRejectedBar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-chart-card">
+                        <div class="chart-header">
+                            <h3>Animale pe status</h3>
+                            <p>Disponibile, urgente, noi si adoptate</p>
+                        </div>
+                        <div class="chart-bars">
+                            <div class="chart-bar">
+                                <div class="bar-meta">
+                                    <span class="bar-label">Disponibile</span>
+                                    <span class="bar-value" id="chartAnimalsAvailableValue">0</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-success" id="chartAnimalsAvailableBar"></div>
+                                </div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="bar-meta">
+                                    <span class="bar-label">Urgente</span>
+                                    <span class="bar-value" id="chartAnimalsUrgentValue">0</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-danger" id="chartAnimalsUrgentBar"></div>
+                                </div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="bar-meta">
+                                    <span class="bar-label">Noi</span>
+                                    <span class="bar-value" id="chartAnimalsNewValue">0</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-info" id="chartAnimalsNewBar"></div>
+                                </div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="bar-meta">
+                                    <span class="bar-label">Adoptate</span>
+                                    <span class="bar-value" id="chartAnimalsAdoptedValue">0</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-neutral" id="chartAnimalsAdoptedBar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Animals Section -->
+            <section class="admin-section" id="adminSectionAnimals" style="display: none;">
+                <div class="admin-header">
+                    <h1>Gestionare Animale</h1>
+                    <button class="btn btn-primary" onclick="openModal('addAnimalModal')">
+                        <i class="fas fa-plus"></i> Adauga Animal
+                    </button>
+                </div>
+
+                <div class="table-wrapper">
+                    <div class="table-header">
+                        <h3>Animale in stoc</h3>
+                        <div style="display: flex; gap: var(--space-sm);">
+                            <input type="text" id="adminAnimalsSearchInput" class="form-control" placeholder="Cauta animal..." style="width: 250px; padding: 8px 12px;">
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nume</th>
+                                <th>Specie</th>
+                                <th>Varsta</th>
+                                <th>Sex</th>
+                                <th>Oras</th>
+                                <th>Status</th>
+                                <th>Disponibil</th>
+                                <th>Actiuni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="animalsTableBody">
+                            <!-- Incarcate prin admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Adoption Requests Section -->
+            <section class="admin-section" id="adminSectionRequests" style="display: none;">
+                <div class="admin-header">
+                    <h1>Cereri de Adoptie</h1>
+                </div>
+                <div class="inbox-layout">
+                    <div class="inbox-list" id="requestsList">
+                        <!-- Incarcate prin admin.js -->
+                    </div>
+                    <div class="inbox-preview" id="requestsPreview">
+                        <div class="inbox-empty">Selecteaza o cerere pentru a vedea detaliile.</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ADD USER MODAL -->
+    <div class="modal-overlay" id="addUserModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Adauga Utilizator Nou</h3>
+                <button class="modal-close" onclick="closeModal('addUserModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Prenume</label>
+                            <input type="text" class="form-control" placeholder="Prenume">
+                        </div>
+                        <div class="form-group">
+                            <label>Nume</label>
+                            <input type="text" class="form-control" placeholder="Nume">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" placeholder="email@exemplu.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Rol</label>
+                        <select class="form-control">
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                            <option value="guest">Guest</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Parola temporara</label>
+                        <input type="password" class="form-control" placeholder="Parola">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-light" onclick="closeModal('addUserModal')">Anuleaza</button>
+                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Creeaza Cont</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD ANIMAL MODAL -->
+    <div class="modal-overlay" id="addAnimalModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Adauga Animal Nou</h3>
+                <button class="modal-close" onclick="closeModal('addAnimalModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addAnimalForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nume</label>
+                            <input type="text" id="animalNameInput" class="form-control" placeholder="Nume animal" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Specie</label>
+                            <select id="animalSpeciesInput" class="form-control" required>
+                                <option value="dog">Caine</option>
+                                <option value="cat">Pisica</option>
+                                <option value="rabbit">Iepure</option>
+                                <option value="bird">Pasare</option>
+                                <option value="other">Altele</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Rasa</label>
+                            <input type="text" id="animalBreedInput" class="form-control" placeholder="Rasa" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Varsta</label>
+                            <select id="animalAgeInput" class="form-control" required>
+                                <option value="baby">Pui (0-1 an)</option>
+                                <option value="young">Tanar (1-3 ani)</option>
+                                <option value="adult">Adult (3-7 ani)</option>
+                                <option value="senior">Senior (7+ ani)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Sex</label>
+                            <select id="animalSexInput" class="form-control" required>
+                                <option value="M">Mascul</option>
+                                <option value="F">Femela</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Marime</label>
+                            <select id="animalSizeInput" class="form-control" required>
+                                <option value="small">Mica</option>
+                                <option value="medium">Medie</option>
+                                <option value="large">Mare</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Oras</label>
+                            <select id="animalCityInput" class="form-control" required>
+                                <option value="bucuresti">Bucuresti</option>
+                                <option value="cluj">Cluj-Napoca</option>
+                                <option value="timisoara">Timisoara</option>
+                                <option value="iasi">Iasi</option>
+                                <option value="brasov">Brasov</option>
+                                <option value="sibiu">Sibiu</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="animalStatusInput" class="form-control" required>
+                                <option value="available">Disponibil</option>
+                                <option value="urgent">Urgent</option>
+                                <option value="new">Nou</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Descriere</label>
+                        <textarea id="animalDescriptionInput" class="form-control" rows="3" placeholder="Descriere scurta"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Imagine (URL)</label>
+                        <input type="url" id="animalPhotoInput" class="form-control" placeholder="https://..." required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Vaccinat</label>
+                            <select id="animalVaccinatedInput" class="form-control">
+                                <option value="true">Da</option>
+                                <option value="false">Nu</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Sterilizat</label>
+                            <select id="animalSterilizedInput" class="form-control">
+                                <option value="true">Da</option>
+                                <option value="false">Nu</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Microcipat</label>
+                            <select id="animalMicrochippedInput" class="form-control">
+                                <option value="true">Da</option>
+                                <option value="false">Nu</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Deparazitat</label>
+                            <select id="animalDewormedInput" class="form-control">
+                                <option value="true">Da</option>
+                                <option value="false">Nu</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Temperament (separat prin virgula)</label>
+                        <input type="text" id="animalTemperamentInput" class="form-control" placeholder="Prietenos, Jucaus">
+                    </div>
+                    <div class="form-group">
+                        <label>Disponibil</label>
+                        <select id="animalAvailableInput" class="form-control">
+                            <option value="true">Da</option>
+                            <option value="false">Nu</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-light" onclick="closeModal('addAnimalModal')">Anuleaza</button>
+                <button class="btn btn-primary" id="submitAnimalBtn"><i class="fas fa-plus"></i> Adauga</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+

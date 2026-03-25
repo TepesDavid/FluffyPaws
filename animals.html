@@ -1,0 +1,282 @@
+﻿<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animale Disponibile — FluffyPaws</title>
+    <link rel="icon" type="image/png" href="images/paw-prints-removebg-preview.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script>if (localStorage.getItem('isLoggedIn') === 'true') document.documentElement.classList.add('is-logged-in');</script>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">🐾</span>
+                <span class="logo-text">FluffyPaws</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Acasă</a></li>
+                <li><a href="animals.html" class="nav-link active">Animale</a></li>
+                <li><a href="success-stories.html" class="nav-link">Povești</a></li>
+                <li><a href="about.html" class="nav-link">Despre Noi</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions" id="navActions">
+                <!-- Guest View -->
+                <div id="guestActions" style="display: flex; gap: 0.5rem;">
+                    <a href="login.html" class="btn btn-outline-light btn-sm">Autentificare</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Înregistrare</a>
+                </div>
+
+                                <!-- User View -->
+                <div id="userActions" class="user-menu" style="display: none;">
+                    <div class="user-menu-trigger" id="userMenuBtn">
+                        <img id="navUserAvatar" src="https://ui-avatars.com/api/?name=User&background=ff6b6b&color=fff&size=100" alt="User" class="user-avatar">
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; color: var(--text-gray);"></i>
+                    </div>
+                    <!-- Dropdown -->
+                    <div class="user-menu-dropdown" id="userDropdown">
+                        <div style="padding: var(--space-sm) var(--space-md); text-align: center;">
+                            <strong id="navUserName" style="display:block; color: var(--text-dark);">Utilizator</strong>
+                            <small id="navUserEmail" style="color: var(--text-gray);"></small>
+                        </div>
+                        <div class="divider"></div>
+                        <a href="profile.html"><i class="fas fa-user"></i> Profilul Meu</a>
+                        <a href="profile.html#favoritesSection" id="navFavoritesLink"><i class="fas fa-heart"></i> Favorite</a>
+                        <div class="divider"></div>
+                        <a href="#" class="logout-link" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Deconectare</a>
+                    </div>
+                </div>
+
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <div class="container">
+            <h1>🐾 Animale Disponibile</h1>
+            <p>Descoperă-ți viitorul cel mai bun prieten. Filtrează după preferințele tale.</p>
+        </div>
+    </div>
+
+    <!-- FILTERS + ANIMALS -->
+    <section class="section" id="animals-app">
+        <div class="container">
+            <div v-if="loading" style="text-align:center; padding: 4rem 0; color: var(--text-gray);">
+                <i class="fas fa-spinner fa-spin" style="font-size:2.5rem; margin-bottom:1rem; display:block;"></i>
+                <p>Se încarcă animalele...</p>
+            </div>
+            <div v-else-if="errorMsg" style="text-align:center; padding: 4rem 0; color: #ff4757;">
+                <i class="fas fa-exclamation-triangle" style="font-size:2.5rem; margin-bottom:1rem; display:block;"></i>
+                <p>{{ errorMsg }}</p>
+            </div>
+            <template v-else>
+                <!-- Filters Bar -->
+                <div class="filters-bar">
+                    <div class="filter-group">
+                        <label>Specie</label>
+                        <select class="form-control" v-model="filterSpecies" @change="applyFilters">
+                            <option value="">Toate</option>
+                            <option value="dog">🐕 Câini</option>
+                            <option value="cat">🐈 Pisici</option>
+                            <option value="rabbit">🐇 Iepuri</option>
+                            <option value="bird">🐦 Păsări</option>
+                            <option value="other">Altele</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Vârstă</label>
+                        <select class="form-control" v-model="filterAge" @change="applyFilters">
+                            <option value="">Toate</option>
+                            <option value="baby">Pui (0-1 an)</option>
+                            <option value="young">Tânăr (1-3 ani)</option>
+                            <option value="adult">Adult (3-7 ani)</option>
+                            <option value="senior">Senior (7+ ani)</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Sex</label>
+                        <select class="form-control" v-model="filterSex" @change="applyFilters">
+                            <option value="">Toate</option>
+                            <option value="M">Mascul</option>
+                            <option value="F">Femelă</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Mărime</label>
+                        <select class="form-control" v-model="filterSize" @change="applyFilters">
+                            <option value="">Toate</option>
+                            <option value="small">Mică</option>
+                            <option value="medium">Medie</option>
+                            <option value="large">Mare</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Oraş</label>
+                        <select class="form-control" v-model="filterCity" @change="applyFilters">
+                            <option value="">Toate</option>
+                            <option value="bucuresti">Bucureşti</option>
+                            <option value="cluj">Cluj-Napoca</option>
+                            <option value="timisoara">Timişoara</option>
+                            <option value="iasi">Iaşi</option>
+                            <option value="brasov">Braşov</option>
+                            <option value="sibiu">Sibiu</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" @click="applyFilters">
+                        <i class="fas fa-search"></i> Caută
+                    </button>
+                </div>
+
+                <!-- Results Info -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-lg);">
+                    <p style="color: var(--text-gray);">Se afişează <strong>{{ pagedAnimals.length }}</strong> animale din
+                        <strong>{{ filteredAnimals.length }}</strong>
+                    </p>
+                    <select class="form-control" style="width: auto; padding: 8px 36px 8px 12px;" v-model="sortBy" @change="applyFilters">
+                        <option value="newest">Sortare: Cele mai noi</option>
+                        <option value="name">Sortare: Nume A-Z</option>
+                        <option value="age">Sortare: Vârstă</option>
+                    </select>
+                </div>
+
+                <!-- Animals Grid -->
+                <div class="animals-grid" v-if="pagedAnimals.length > 0">
+                    <div class="card animal-card fade-in" v-for="animal in pagedAnimals" :key="animal.id">
+                        <div class="card-img-wrapper">
+                            <img :src="animal.photo" :alt="animal.name" class="card-img">
+                            <span class="card-badge" :class="statusClass(animal.status)">{{ animal.statusLabel }}</span>
+                            <button class="favorite-btn" @click="toggleFavorite(animal.id)">
+                                <i :class="isFavorite(animal.id) ? 'fas fa-heart' : 'far fa-heart'"
+                                    :style="isFavorite(animal.id) ? 'color: var(--primary)' : ''"></i>
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">{{ animal.name }}</h3>
+                            <div class="card-info">
+                                <span class="info-tag"><i class="fas" :class="speciesIcon(animal.species)"></i> {{ animal.breed }}</span>
+                                <span class="info-tag"><i class="fas fa-birthday-cake"></i> {{ animal.ageLabel }}</span>
+                                <span class="info-tag"><i :class="animal.sex === 'M' ? 'fas fa-mars' : 'fas fa-venus'"></i>
+                                    {{ animal.sex === 'M' ? 'Mascul' : 'Femelă' }}</span>
+                            </div>
+                            <p class="card-text">{{ animal.description }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="info-tag"><i class="fas fa-map-marker-alt"></i> {{ animal.cityLabel }}</span>
+                            <a :href="'animal-details.html?id=' + animal.id" class="btn btn-primary btn-sm">
+                                <i class="fas fa-eye"></i> Detalii
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty state -->
+                <div v-else style="text-align: center; padding: var(--space-3xl) 0; color: var(--text-gray);">
+                    <i class="fas fa-search" style="font-size: 3rem; margin-bottom: var(--space-lg); opacity: 0.3;"></i>
+                    <h3>Niciun animal găsit</h3>
+                    <p>Încearcă să modifici filtrele de căutare.</p>
+                    <button class="btn btn-primary" @click="resetFilters" style="margin-top: var(--space-md);">
+                        <i class="fas fa-times"></i> Resetează filtrele
+                    </button>
+                </div>
+
+                <!-- Pagination -->
+                <div class="table-pagination mt-4" v-if="totalPages > 1">
+                    <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button v-for="page in pageNumbers" :key="page" @click="goToPage(page)"
+                        :class="{ active: page === currentPage }">
+                        {{ page }}
+                    </button>
+                    <button @click="goToPage(currentPage + 1)" :disabled="currentPage === totalPages">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </template>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Rândul 1: Brand + Linkuri -->
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span>🐾</span> FluffyPaws
+                    </div>
+                    <p>Conectăm suflete necuvântătoare cu familii iubitoare din 2020. Fiecare adopție contează.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column footer-spacer" aria-hidden="true"></div>
+                <div class="footer-column footer-spacer" aria-hidden="true"></div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+40712345678"><i class="fas fa-phone"></i> +40 712 345 678</a></li>
+                        <li><a href="mailto:contact@fluffypaws.ro"><i class="fas fa-envelope"></i>
+                                contact@fluffypaws.ro</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> București, România</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Rândul 2: Hartă + Program -->
+            <div class="footer-info-row">
+
+                <div class="open-times">
+                    <div class="program-status">
+                        <h3>Magazinul este: <span id="status-program">Se verifică...</span></h3>
+                    </div>
+                    <h4>Program de lucru</h4>
+                    <ul>
+                        <li>Luni – Vineri: 08:00 – 16:00</li>
+                        <li>Sâmbătă – Duminică: 08:00 – 12:00</li>
+                    </ul>
+                </div>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d503.4922716183288!2d26.07887171913752!3d44.44993101618476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sro!2sro!4v1772448026517!5m2!1sro!2sro"
+                        width="600" height="220" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 FluffyPaws. Toate drepturile rezervate. Realizat cu ❤️ pentru animale.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK (Compat versions for easy integration) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+    <!-- App Configuration & Logic -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/animals.js"></script>
+</body>
+
+</html>
+
+

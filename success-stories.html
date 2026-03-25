@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Povești de Succes — FluffyPaws</title>
+    <link rel="icon" type="image/png" href="images/paw-prints-removebg-preview.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+<script>if(localStorage.getItem('isLoggedIn') === 'true') document.documentElement.classList.add('is-logged-in');</script>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">🐾</span>
+                <span class="logo-text">FluffyPaws</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Acasă</a></li>
+                <li><a href="animals.html" class="nav-link">Animale</a></li>
+                <li><a href="success-stories.html" class="nav-link active">Povești</a></li>
+                <li><a href="about.html" class="nav-link">Despre Noi</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions" id="navActions">
+                <!-- Guest View -->
+                <div id="guestActions" style="display: flex; gap: 0.5rem;">
+                    <a href="login.html" class="btn btn-outline-light btn-sm">Autentificare</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Înregistrare</a>
+                </div>
+
+                                <!-- User View -->
+                <div id="userActions" class="user-menu" style="display: none;">
+                    <div class="user-menu-trigger" id="userMenuBtn">
+                        <img id="navUserAvatar" src="https://ui-avatars.com/api/?name=User&background=ff6b6b&color=fff&size=100" alt="User" class="user-avatar">
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; color: var(--text-gray);"></i>
+                    </div>
+                    <!-- Dropdown -->
+                    <div class="user-menu-dropdown" id="userDropdown">
+                        <div style="padding: var(--space-sm) var(--space-md); text-align: center;">
+                            <strong id="navUserName" style="display:block; color: var(--text-dark);">Utilizator</strong>
+                            <small id="navUserEmail" style="color: var(--text-gray);"></small>
+                        </div>
+                        <div class="divider"></div>
+                        <a href="profile.html"><i class="fas fa-user"></i> Profilul Meu</a>
+                        <a href="profile.html#favoritesSection" id="navFavoritesLink"><i class="fas fa-heart"></i> Favorite</a>
+                        <div class="divider"></div>
+                        <a href="#" class="logout-link" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Deconectare</a>
+                    </div>
+                </div>
+            
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <div class="container">
+            <h1>💕 Povești de Succes</h1>
+            <p>Adopțiile care au schimbat vieți — ale animalelor și ale familiilor lor</p>
+        </div>
+    </div>
+
+    <!-- STORIES -->
+    <section class="section">
+        <div class="container">
+            <div class="stories-grid">
+                <div class="story-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?w=500&h=400&fit=crop" 
+                         alt="Buddy și familia" class="story-img">
+                    <div class="story-content">
+                        <h3>Buddy și-a găsit familia perfectă</h3>
+                        <p>Buddy a petrecut 8 luni în adăpost înainte să fie adoptat de familia Ionescu. 
+                           Acum aleargă fericit în curtea casei lor din Cluj și este cel mai bun prieten al micuțului Andrei.</p>
+                        <span class="story-date">Adoptat pe 15 Decembrie 2024</span>
+                    </div>
+                </div>
+
+                <div class="story-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=500&h=400&fit=crop" 
+                         alt="Whiskers" class="story-img">
+                    <div class="story-content">
+                        <h3>Whiskers — din stradă, pe canapea</h3>
+                        <p>Whiskers era o pisicuță speriată găsită într-o cutie de carton. După 3 luni de îngrijire, 
+                           a fost adoptată de Maria care o răsfață zilnic. Acum e regina canapelei!</p>
+                        <span class="story-date">Adoptată pe 8 Ianuarie 2025</span>
+                    </div>
+                </div>
+
+                <div class="story-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?w=500&h=400&fit=crop" 
+                         alt="Rex" class="story-img">
+                    <div class="story-content">
+                        <h3>Rex — de la abandon la campion</h3>
+                        <p>Rex, un ciobănesc german abandonat, a fost adoptat de Cosmin, antrenor canin. 
+                           Acum participă la competiții de agility și a câștigat deja 3 trofee!</p>
+                        <span class="story-date">Adoptat pe 20 Noiembrie 2024</span>
+                    </div>
+                </div>
+
+                <div class="story-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=500&h=400&fit=crop" 
+                         alt="Daisy" class="story-img">
+                    <div class="story-content">
+                        <h3>Daisy — zâmbetul familiei Munteanu</h3>
+                        <p>Daisy este un amestec de rasa mică care a cucerit familia Munteanu din prima zi. 
+                           Copiii o adoră și o iau peste tot cu ei. E cel mai fericit câine din București!</p>
+                        <span class="story-date">Adoptată pe 2 Ianuarie 2025</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section text-center" style="background: var(--bg-light-gray);">
+        <div class="container fade-in">
+            <h2>Vrei și tu o poveste de succes?</h2>
+            <p style="color: var(--text-gray); max-width: 500px; margin: var(--space-md) auto var(--space-xl);">
+                Fiecare animal merită o casă. Tu poți fi următorul erou din povestea unui suflet necuvântător.
+            </p>
+            <a href="animals.html" class="btn btn-primary btn-lg">
+                <i class="fas fa-search"></i> Descoperă Animale
+            </a>
+        </div>
+    </section>
+
+        <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Rândul 1: Brand + Linkuri -->
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span>🐾</span> FluffyPaws
+                    </div>
+                    <p>Conectăm suflete necuvântătoare cu familii iubitoare din 2020. Fiecare adopție contează.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column footer-spacer" aria-hidden="true"></div>
+                <div class="footer-column footer-spacer" aria-hidden="true"></div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+40712345678"><i class="fas fa-phone"></i> +40 712 345 678</a></li>
+                        <li><a href="mailto:contact@fluffypaws.ro"><i class="fas fa-envelope"></i>
+                                contact@fluffypaws.ro</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> București, România</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Rândul 2: Hartă + Program -->
+            <div class="footer-info-row">
+
+                <div class="open-times">
+                    <div class="program-status">
+                        <h3>Magazinul este: <span id="status-program">Se verifică...</span></h3>
+                    </div>
+                    <h4>Program de lucru</h4>
+                    <ul>
+                        <li>Luni – Vineri: 08:00 – 16:00</li>
+                        <li>Sâmbătă – Duminică: 08:00 – 12:00</li>
+                    </ul>
+                </div>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d503.4922716183288!2d26.07887171913752!3d44.44993101618476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sro!2sro!4v1772448026517!5m2!1sro!2sro"
+                        width="600" height="220" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 FluffyPaws. Toate drepturile rezervate. Realizat cu ❤️ pentru animale.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerere de Adopție — FluffyPaws</title>
+    <link rel="icon" type="image/png" href="images/paw-prints-removebg-preview.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+<script>if(localStorage.getItem('isLoggedIn') === 'true') document.documentElement.classList.add('is-logged-in');</script>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">🐾</span>
+                <span class="logo-text">FluffyPaws</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Acasă</a></li>
+                <li><a href="animals.html" class="nav-link">Animale</a></li>
+                <li><a href="success-stories.html" class="nav-link">Povești</a></li>
+                <li><a href="about.html" class="nav-link">Despre Noi</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions" id="navActions">
+                <!-- Guest View -->
+                <div id="guestActions" style="display: flex; gap: 0.5rem;">
+                    <a href="login.html" class="btn btn-outline-light btn-sm">Autentificare</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Înregistrare</a>
+                </div>
+
+                                <!-- User View -->
+                <div id="userActions" class="user-menu" style="display: none;">
+                    <div class="user-menu-trigger" id="userMenuBtn">
+                        <img id="navUserAvatar" src="https://ui-avatars.com/api/?name=User&background=ff6b6b&color=fff&size=100" alt="User" class="user-avatar">
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; color: var(--text-gray);"></i>
+                    </div>
+                    <!-- Dropdown -->
+                    <div class="user-menu-dropdown" id="userDropdown">
+                        <div style="padding: var(--space-sm) var(--space-md); text-align: center;">
+                            <strong id="navUserName" style="display:block; color: var(--text-dark);">Utilizator</strong>
+                            <small id="navUserEmail" style="color: var(--text-gray);"></small>
+                        </div>
+                        <div class="divider"></div>
+                        <a href="profile.html"><i class="fas fa-user"></i> Profilul Meu</a>
+                        <a href="profile.html#favoritesSection" id="navFavoritesLink"><i class="fas fa-heart"></i> Favorite</a>
+                        <div class="divider"></div>
+                        <a href="#" class="logout-link" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Deconectare</a>
+                    </div>
+                </div>
+            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <div class="container">
+            <h1>📝 Cerere de Adopție</h1>
+            <p>Completează formularul de mai jos pentru a aplica la adopția lui <strong id="adoptionAnimalName">Animal</strong></p>
+            <div class="breadcrumb">
+                <a href="index.html">Acasă</a><span>/</span>
+                <a href="animals.html">Animale</a><span>/</span>
+                <a href="#" id="breadcrumbAnimalLink">Animal</a><span>/</span>
+                <span>Cerere Adopție</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADOPTION FORM -->
+    <div class="adoption-form-container">
+        <div class="adoption-form-card fade-in">
+            <!-- Animal Summary -->
+            <div style="display: flex; align-items: center; gap: var(--space-lg); padding-bottom: var(--space-xl); border-bottom: 1px solid var(--border-color); margin-bottom: var(--space-xl);">
+                <img id="animalSummaryImage" src="https://placedog.net/120/120" 
+                     alt="Animal" style="width: 80px; height: 80px; border-radius: var(--border-radius); object-fit: cover;">
+                <div>
+                    <h3 id="animalSummaryTitle">Animal</h3>
+                    <p id="animalSummaryMeta" style="color: var(--text-gray);">—</p>
+                </div>
+            </div>
+
+            <div id="loginRequiredMessage" style="display: none; margin-bottom: var(--space-xl); padding: var(--space-md); border: 1px solid rgba(255,71,87,0.3); background: rgba(255,71,87,0.08); border-radius: var(--border-radius);">
+                <strong>Este nevoie de cont.</strong>
+                <p style="margin: var(--space-xs) 0; color: var(--text-gray);">
+                    Pentru a trimite o cerere de adoptie trebuie sa fii autentificat.
+                </p>
+                <a href="login.html" id="loginRequiredLink" class="btn btn-primary btn-sm">Autentifica-te</a>
+            </div>
+
+            <div id="adoptionSuccess" style="display: none; text-align: center; padding: var(--space-xl);">
+                <div style="font-size: 3rem; color: var(--accent-green); margin-bottom: var(--space-md);">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Multumim! Cererea ta a fost trimisa.</h3>
+                <p style="color: var(--text-gray); margin: var(--space-md) 0;">
+                    Te vom contacta in cel mai scurt timp pentru urmatorii pasi.
+                </p>
+                <a href="#" id="successBackLink" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-arrow-left"></i> Inapoi la animal
+                </a>
+            </div>
+
+            <form id="adoptionForm">
+                <!-- Section 1: Type -->
+                <div class="form-section">
+                    <h3><span class="step-number">1</span> Tipul cererii</h3>
+                    <div class="form-group">
+                        <label class="form-check">
+                            <input type="radio" name="requestType" value="adoption" checked> 
+                            🏠 Adopție permanentă
+                        </label>
+                        <label class="form-check">
+                            <input type="radio" name="requestType" value="foster"> 
+                            ⏳ Foster temporar
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Section 2: About You -->
+                <div class="form-section">
+                    <h3><span class="step-number">2</span> Despre tine</h3>
+                    <div class="form-group">
+                        <label for="motivation">De ce vrei să adopți? <span class="required">*</span></label>
+                        <textarea id="motivation" class="form-control" required 
+                                  placeholder="Spune-ne motivul pentru care vrei să adopți acest animal..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="experience">Ai mai avut animale de companie? <span class="required">*</span></label>
+                        <select id="experience" class="form-control" required>
+                            <option value="">Selectează</option>
+                            <option value="yes_current">Da, am în prezent</option>
+                            <option value="yes_past">Da, am avut în trecut</option>
+                            <option value="no">Nu, este prima dată</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="experienceDetails">Dacă da, oferă detalii</label>
+                        <textarea id="experienceDetails" class="form-control" 
+                                  placeholder="Ce animale ai avut/ai, câți ani etc."></textarea>
+                    </div>
+                </div>
+
+                <!-- Section 3: Living -->
+                <div class="form-section">
+                    <h3><span class="step-number">3</span> Condiții de viață</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="livingType">Tip locuință <span class="required">*</span></label>
+                            <select id="livingType" class="form-control" required>
+                                <option value="">Selectează</option>
+                                <option value="apartment">Apartament</option>
+                                <option value="house_no_yard">Casă fără curte</option>
+                                <option value="house_yard">Casă cu curte</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="familyMembers">Membri familie <span class="required">*</span></label>
+                            <select id="familyMembers" class="form-control" required>
+                                <option value="">Selectează</option>
+                                <option value="1">1 persoană</option>
+                                <option value="2">2 persoane</option>
+                                <option value="3">3 persoane</option>
+                                <option value="4">4 persoane</option>
+                                <option value="5+">5+ persoane</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Ai copii?</label>
+                        <div style="display: flex; gap: var(--space-lg);">
+                            <label class="form-check">
+                                <input type="radio" name="hasChildren" value="yes"> Da
+                            </label>
+                            <label class="form-check">
+                                <input type="radio" name="hasChildren" value="no" checked> Nu
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Ai alte animale acasă?</label>
+                        <div style="display: flex; gap: var(--space-lg);">
+                            <label class="form-check">
+                                <input type="radio" name="hasOtherPets" value="yes"> Da
+                            </label>
+                            <label class="form-check">
+                                <input type="radio" name="hasOtherPets" value="no" checked> Nu
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Agreement -->
+                <div class="form-section">
+                    <h3><span class="step-number">4</span> Confirmare</h3>
+                    <div class="form-group">
+                        <label class="form-check">
+                            <input type="checkbox" id="confirmInfo" required> 
+                            Confirm că informațiile furnizate sunt corecte <span class="required">*</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-check">
+                            <input type="checkbox" id="acceptTerms" required>
+                            Accept <a href="#" style="color: var(--primary);">condițiile de adopție</a> <span class="required">*</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-check">
+                            <input type="checkbox" id="allowContact">
+                            Sunt de acord să fiu contactat pentru vizită de pre-adopție
+                        </label>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: var(--space-md); justify-content: center;">
+                    <a href="#" id="backToAnimalLink" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-arrow-left"></i> Înapoi
+                    </a>
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-paper-plane"></i> Trimite Cererea
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+        <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Rândul 1: Brand + Linkuri -->
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span>🐾</span> FluffyPaws
+                    </div>
+                    <p>Conectăm suflete necuvântătoare cu familii iubitoare din 2020. Fiecare adopție contează.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column footer-spacer" aria-hidden="true"></div>
+                <div class="footer-column footer-spacer" aria-hidden="true"></div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+40712345678"><i class="fas fa-phone"></i> +40 712 345 678</a></li>
+                        <li><a href="mailto:contact@fluffypaws.ro"><i class="fas fa-envelope"></i>
+                                contact@fluffypaws.ro</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> București, România</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Rândul 2: Hartă + Program -->
+            <div class="footer-info-row">
+
+                <div class="open-times">
+                    <div class="program-status">
+                        <h3>Magazinul este: <span id="status-program">Se verifică...</span></h3>
+                    </div>
+                    <h4>Program de lucru</h4>
+                    <ul>
+                        <li>Luni – Vineri: 08:00 – 16:00</li>
+                        <li>Sâmbătă – Duminică: 08:00 – 12:00</li>
+                    </ul>
+                </div>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d503.4922716183288!2d26.07887171913752!3d44.44993101618476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sro!2sro!4v1772448026517!5m2!1sro!2sro"
+                        width="600" height="220" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 FluffyPaws. Toate drepturile rezervate. Realizat cu ❤️ pentru animale.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/adoption-form.js"></script>
+</body>
+</html>
+
+
+

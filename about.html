@@ -1,0 +1,383 @@
+﻿<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerere de Adopție — FluffyPaws</title>
+    <link rel="icon" type="image/png" href="images/paw-prints-removebg-preview.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script>if(localStorage.getItem('isLoggedIn') === 'true') document.documentElement.classList.add('is-logged-in');</script>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">🐾</span>
+                <span class="logo-text">FluffyPaws</span>
+            </a>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Acasă</a></li>
+                <li><a href="animals.html" class="nav-link">Animale</a></li>
+                <li><a href="success-stories.html" class="nav-link">Povești</a></li>
+                <li><a href="about.html" class="nav-link active">Despre Noi</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions" id="navActions">
+                <!-- Guest View -->
+                <div id="guestActions" style="display: flex; gap: 0.5rem;">
+                    <a href="login.html" class="btn btn-outline-light btn-sm">Autentificare</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Înregistrare</a>
+                </div>
+
+                                <!-- User View -->
+                <div id="userActions" class="user-menu" style="display: none;">
+                    <div class="user-menu-trigger" id="userMenuBtn">
+                        <img id="navUserAvatar" src="https://ui-avatars.com/api/?name=User&background=ff6b6b&color=fff&size=100" alt="User" class="user-avatar">
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; color: var(--text-gray);"></i>
+                    </div>
+                    <!-- Dropdown -->
+                    <div class="user-menu-dropdown" id="userDropdown">
+                        <div style="padding: var(--space-sm) var(--space-md); text-align: center;">
+                            <strong id="navUserName" style="display:block; color: var(--text-dark);">Utilizator</strong>
+                            <small id="navUserEmail" style="color: var(--text-gray);"></small>
+                        </div>
+                        <div class="divider"></div>
+                        <a href="profile.html"><i class="fas fa-user"></i> Profilul Meu</a>
+                        <a href="profile.html#favoritesSection" id="navFavoritesLink"><i class="fas fa-heart"></i> Favorite</a>
+                        <div class="divider"></div>
+                        <a href="#" class="logout-link" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Deconectare</a>
+                    </div>
+                </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HERO SWIPER -->
+    <div class="swiper-hero-wrapper">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="client-img">
+                        <img src="images/banner1.jpg" alt="">
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="client-img">
+                        <img src="images/banner2.jpg" alt="">
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="client-img">
+                        <img src="images/banner3.jpg" alt="">
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="client-img">
+                        <img src="images/banner4.jpg" alt="">
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="client-img">
+                        <img src="images/banner5.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <!-- Scroll-down indicator -->
+        <a href="#stats-stop" class="scroll-down-indicator">
+            <span>Scroll</span>
+            <div class="arrow-icon">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </a>
+    </div>
+
+    <!-- ===== SECTION 1: MISIUNE + STATS ===== -->
+    <section class="about-mission section" id="stats-stop">
+        <div class="container">
+            <div class="about-mission-inner">
+                <div class="about-mission-text fade-in">
+                    <span class="about-label">Misiunea noastră</span>
+                    <h2>Fiecare animal merită<br><span class="highlight">o a doua șansă</span></h2>
+                    <p>FluffyPaws a luat naștere dintr-o convingere simplă: niciun animal nu ar trebui să sufere de
+                        singurătate. Construim punți între sufletele cu patru labe și familiile care le pot oferi
+                        căldura unui cămin.</p>
+                    <p>Credem că adopția nu este doar un act de bunătate — este o legătură pe viață, o decizie care
+                        schimbă două vieți deodată.</p>
+                    <a href="animals.html" class="btn btn-primary btn-lg" style="margin-top: 1.5rem;">
+                        <i class="fas fa-paw"></i> Adoptă acum
+                    </a>
+                </div>
+                <div class="about-stats-grid slide-in-right">
+                    <div class="about-stat-card">
+                        <div class="about-stat-icon" style="background: linear-gradient(135deg, #FF6B35, #FF8F66);">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <span class="stat-number" data-target="1240" data-suffix="+">0</span>
+                        <span class="stat-label">Animale adoptate</span>
+                    </div>
+                    <div class="about-stat-card">
+                        <div class="about-stat-icon" style="background: linear-gradient(135deg, #004E89, #0066B3);">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <span class="stat-number" data-target="980" data-suffix="+">0</span>
+                        <span class="stat-label">Familii fericite</span>
+                    </div>
+                    <div class="about-stat-card">
+                        <div class="about-stat-icon" style="background: linear-gradient(135deg, #2ED573, #26BC64);">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <span class="stat-number" data-target="24" data-suffix="">0</span>
+                        <span class="stat-label">Voluntari activi</span>
+                    </div>
+                    <div class="about-stat-card">
+                        <div class="about-stat-icon" style="background: linear-gradient(135deg, #A855F7, #9333EA);">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <span class="stat-number" data-target="6" data-suffix=" ani">0</span>
+                        <span class="stat-label">De activitate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECTION 2: POVESTEA + ADĂPOST ===== -->
+    <section class="about-story">
+        <div class="about-story-visual">
+            <img src="images/shelter.jpg" alt="Adăpostul FluffyPaws" class="about-shelter-img">
+            <div class="about-story-badge">
+                <i class="fas fa-award"></i>
+                <span>Fondat în 2020</span>
+            </div>
+            <div class="about-story-float-tag">
+                <i class="fas fa-map-marker-alt"></i> București, România
+            </div>
+        </div>
+        <div class="about-story-content fade-in">
+            <span class="about-label">Cum a început totul</span>
+            <h2>O idee mică, un <span class="highlight">impact uriaș</span></h2>
+            <p>Totul a pornit în 2020, când fondatoarea noastră, <strong>Elena Ionescu</strong>, a găsit un cățeluș
+                abandonat lângă blocul ei din Sectorul 3. Fără adăpost disponibil în apropiere, a decis să acționeze.
+            </p>
+            <p>Împreună cu câțiva prieteni și un garaj transformat în spațiu de îngrijire, a pus bazele a ceea ce urma
+                să devină FluffyPaws — o comunitate dedicată protecției și adopției animalelor.</p>
+            <p>Azi, adăpostul nostru din nordul Bucureștiului găzduiește în medie <strong>60 de animale</strong>, cu
+                facilități moderne de îngrijire, zone de socializare și un program veterinar permanent.</p>
+            <div class="about-story-values">
+                <div class="about-value-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Îngrijire de calitate</span>
+                </div>
+                <div class="about-value-item">
+                    <i class="fas fa-hands-helping"></i>
+                    <span>Comunitate unită</span>
+                </div>
+                <div class="about-value-item">
+                    <i class="fas fa-stethoscope"></i>
+                    <span>Vet permanent</span>
+                </div>
+                <div class="about-value-item">
+                    <i class="fas fa-leaf"></i>
+                    <span>Spații verzi</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECTION 3: ECHIPA ===== -->
+    <section class="about-team section">
+        <div class="container">
+            <div class="section-header">
+                <span class="about-label">Oamenii din spatele poveștii</span>
+                <h2>Echipa noastră <span class="highlight">dedicată</span></h2>
+                <p>Fiecare membru al echipei noastre vine cu o pasiune autentică pentru animale și o dorință sinceră de
+                    a face diferența.</p>
+            </div>
+            <div class="about-team-grid">
+                <div class="about-team-card fade-in">
+                    <div class="about-team-img-wrap">
+                        <img src="images/worker1.jpg" alt="Elena Ionescu">
+                    </div>
+                    <div class="about-team-info">
+                        <h3>Elena Ionescu</h3>
+                        <span class="about-team-role">Fondatoare & Director</span>
+                        <p>Veterinară cu 12 ani de experiență, Elena a transformat o pasiune în misiune. Coordonează
+                            toate adopțiile și supraveghează bunăstarea animalelor.</p>
+                    </div>
+                </div>
+                <div class="about-team-card fade-in">
+                    <div class="about-team-img-wrap">
+                        <img src="images/worker2.jpg" alt="Andrei Popescu">
+                    </div>
+                    <div class="about-team-info">
+                        <h3>Andrei Popescu</h3>
+                        <span class="about-team-role">Coordonator Voluntari</span>
+                        <p>Andrei organizează weekend-urile de adopție și gestionează rețeaua de peste 24 de voluntari.
+                            Sufletul evenimentelor FluffyPaws.</p>
+                    </div>
+                </div>
+                <div class="about-team-card fade-in">
+                    <div class="about-team-img-wrap">
+                        <img src="images/worker3.jpg" alt="Maria Constantin">
+                    </div>
+                    <div class="about-team-info">
+                        <h3>Maria Constantin</h3>
+                        <span class="about-team-role">Specialist Îngrijire</span>
+                        <p>Maria se ocupă zilnic de hrana, curățenia și programul de socializare al animalelor. Nimeni
+                            nu cunoaște mai bine fiecare suflet din adăpost.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECTION 4: REFLECȚII ===== -->
+    <section class="about-reflections">
+        <div class="about-reflections-bg"></div>
+        <div class="container" style="position:relative; z-index:2;">
+            <div class="section-header" style="color:#fff;">
+                <span class="about-label"
+                    style="color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.3);">Vocea echipei</span>
+                <h2 style="color:#fff;">Ce înseamnă FluffyPaws <span style="color: var(--primary-light);">pentru
+                        noi</span></h2>
+                <p style="color: rgba(255,255,255,0.75);">Dincolo de cifre și statistici, există povești adevărate și
+                    emoții trăite zilnic.</p>
+            </div>
+            <div class="about-quotes-grid">
+                <div class="about-quote-card fade-in">
+                    <div class="about-quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="about-quote-text">„Dimineața în care văd un animal că pleacă spre casa lui nouă este ziua
+                        în care îmi amintesc de ce fac asta. Nu există satisfacție mai mare."</p>
+                    <div class="about-quote-author">
+                        <img src="images/worker1.jpg" alt="Elena">
+                        <div>
+                            <strong>Elena Ionescu</strong>
+                            <span>Fondatoare</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-quote-card fade-in">
+                    <div class="about-quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="about-quote-text">„Voluntarii noștri vin din toate colțurile orașului, dar îi unește
+                        același lucru: dragostea sinceră pentru animale. Asta construieste o comunitate reală."</p>
+                    <div class="about-quote-author">
+                        <img src="images/worker2.jpg" alt="Andrei">
+                        <div>
+                            <strong>Andrei Popescu</strong>
+                            <span>Coordonator Voluntari</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-quote-card fade-in">
+                    <div class="about-quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="about-quote-text">„Fiecare animal are un caracter unic. Rolul meu e să îl ajut să
+                        strălucească, să îi câștige încrederea — și apoi să îl văd înflorind într-o familie nouă."</p>
+                    <div class="about-quote-author">
+                        <img src="images/worker3.jpg" alt="Maria">
+                        <div>
+                            <strong>Maria Constantin</strong>
+                            <span>Specialist Îngrijire</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Banner -->
+            <div class="about-cta-banner fade-in">
+                <div class="about-cta-text">
+                    <h3>Vrei să faci parte din echipă?</h3>
+                    <p>Căutăm oameni cu inimă mare, gata să doneze câteva ore pe săptămână pentru o cauză care contează.
+                    </p>
+                </div>
+                <a href="contact.html" class="btn btn-primary btn-lg">
+                    <i class="fas fa-hands-helping"></i> Devino voluntar
+                </a>
+            </div>
+        </div>
+    </section>
+
+        <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Rândul 1: Brand + Linkuri -->
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span>🐾</span> FluffyPaws
+                    </div>
+                    <p>Conectăm suflete necuvântătoare cu familii iubitoare din 2020. Fiecare adopție contează.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column footer-spacer" aria-hidden="true"></div>
+                <div class="footer-column footer-spacer" aria-hidden="true"></div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+40712345678"><i class="fas fa-phone"></i> +40 712 345 678</a></li>
+                        <li><a href="mailto:contact@fluffypaws.ro"><i class="fas fa-envelope"></i>
+                                contact@fluffypaws.ro</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> București, România</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Rândul 2: Hartă + Program -->
+            <div class="footer-info-row">
+
+                <div class="open-times">
+                    <div class="program-status">
+                        <h3>Magazinul este: <span id="status-program">Se verifică...</span></h3>
+                    </div>
+                    <h4>Program de lucru</h4>
+                    <ul>
+                        <li>Luni – Vineri: 08:00 – 16:00</li>
+                        <li>Sâmbătă – Duminică: 08:00 – 12:00</li>
+                    </ul>
+                </div>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d503.4922716183288!2d26.07887171913752!3d44.44993101618476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sro!2sro!4v1772448026517!5m2!1sro!2sro"
+                        width="600" height="220" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 FluffyPaws. Toate drepturile rezervate. Realizat cu ❤️ pentru animale.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
+
+
+

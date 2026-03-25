@@ -1,0 +1,327 @@
+/* ============================================
+   PawsOfHope - Responsive Styles
+   ============================================ */
+
+/* ---------- TABLET (max-width: 1024px) ---------- */
+@media (max-width: 1024px) {
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+
+    .hero-content h1 { font-size: 2.8rem; }
+
+    .features-grid,
+    .animals-grid,
+    .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stories-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .story-card {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-xl);
+    }
+
+    .admin-stats-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .admin-charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-section {
+        gap: var(--space-xl);
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .animal-details-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .animal-gallery {
+        position: static;
+    }
+
+    .profile-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-sidebar {
+        position: static;
+    }
+}
+
+/* ---------- MOBILE (max-width: 768px) ---------- */
+@media (max-width: 768px) {
+    :root {
+        --navbar-height: 70px;
+    }
+
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.5rem; }
+
+    .section {
+        padding: var(--space-2xl) 0;
+    }
+
+    /* Navbar Mobile */
+    .nav-menu {
+        position: fixed;
+        top: var(--navbar-height);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--bg-white);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-xl);
+        transform: translateX(100%);
+        transition: transform var(--transition-normal);
+        z-index: 999;
+    }
+
+    .nav-menu.show {
+        transform: translateX(0);
+    }
+
+    .nav-actions {
+        display: none;
+    }
+
+    .nav-menu.show ~ .nav-actions {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        bottom: var(--space-xl);
+        left: var(--space-xl);
+        right: var(--space-xl);
+        z-index: 999;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    /* Hero Mobile */
+    .hero {
+        min-height: auto;
+        padding: var(--space-3xl) 0;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-stats {
+        gap: var(--space-xl);
+    }
+
+    .hero-stat .stat-number {
+        font-size: 1.8rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    /* Grids Mobile */
+    .features-grid,
+    .animals-grid,
+    .testimonials-grid,
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    /* Auth Mobile */
+    .auth-container {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-image {
+        display: none;
+    }
+
+    .auth-form-wrapper {
+        padding: var(--space-xl);
+    }
+
+    /* Admin Mobile */
+    .admin-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-sidebar {
+        display: none;
+    }
+
+    .admin-sidebar.show {
+        display: block;
+        position: fixed;
+        top: var(--navbar-height);
+        left: 0;
+        bottom: 0;
+        width: 260px;
+        z-index: 900;
+        overflow-y: auto;
+    }
+
+    .admin-stats-row {
+        grid-template-columns: 1fr;
+    }
+    .admin-charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Tables Mobile */
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 700px;
+    }
+
+    /* Footer Mobile */
+    .footer-main {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-social {
+        justify-content: center;
+    }
+
+    /* Contact Mobile */
+    .contact-layout {
+        grid-template-columns: 1fr;
+    }
+
+    /* About Mobile */
+    .about-section {
+        grid-template-columns: 1fr;
+    }
+
+    .about-section.reverse {
+        direction: ltr;
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Gallery Mobile */
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Story Cards Mobile */
+    .story-card {
+        grid-template-columns: 1fr;
+    }
+
+    .story-card .story-img {
+        min-height: 200px;
+    }
+
+    /* Animal Details Mobile */
+    .animal-gallery .main-image {
+        height: 300px;
+    }
+
+    .animal-gallery .thumbnail-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Page Header */
+    .page-header {
+        padding: var(--space-2xl) 0;
+    }
+
+    .page-header h1 {
+        font-size: 1.8rem;
+    }
+
+    /* Filters */
+    .filters-bar {
+        flex-direction: column;
+    }
+
+    .filter-group {
+        width: 100%;
+    }
+
+    /* Social buttons */
+    .social-buttons {
+        flex-direction: column;
+    }
+}
+
+/* ---------- SMALL MOBILE (max-width: 480px) ---------- */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 var(--space-md);
+    }
+
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.3rem; }
+
+    .hero-content h1 {
+        font-size: 1.7rem;
+    }
+
+    .hero-stats {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .animal-gallery .thumbnail-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .btn-lg {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+    }
+
+    .adoption-form-card {
+        padding: var(--space-lg);
+    }
+
+    .auth-form-wrapper {
+        padding: var(--space-lg);
+    }
+}

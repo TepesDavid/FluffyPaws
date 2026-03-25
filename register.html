@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Înregistrare - FluffyPaws</title>
+    <link rel="icon" type="image/png" href="images/paw-prints-removebg-preview.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script>if (localStorage.getItem('isLoggedIn') === 'true') document.documentElement.classList.add('is-logged-in');</script>
+</head>
+
+<body>
+
+    <div class="auth-page">
+        <div class="auth-container">
+            <!-- Close Button -->
+            <a href="index.html" class="auth-close-btn" title="Înapoi la pagina principală">
+                <i class="fas fa-times"></i>
+            </a>
+
+            <!-- Left Side - Image -->
+            <div class="auth-image">
+                <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=800&h=1000&fit=crop"
+                    alt="Pisică drăguță">
+                <div class="auth-image-content">
+                    <h2>Alătură-te comunității!</h2>
+                    <p>Creează un cont gratuit și fii parte din povestea de adopție a unui animal.</p>
+                </div>
+            </div>
+
+            <!-- Right Side - Form -->
+            <div class="auth-form-wrapper">
+                <h2>Creează un cont</h2>
+
+
+                <form id="registerForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">Prenume <span class="required">*</span></label>
+                            <div class="form-control-icon">
+                                <input type="text" id="firstName" class="form-control" placeholder="Prenumele tău"
+                                    required>
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Nume <span class="required">*</span></label>
+                            <div class="form-control-icon">
+                                <input type="text" id="lastName" class="form-control" placeholder="Numele tău" required>
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regEmail">Email <span class="required">*</span></label>
+                        <div class="form-control-icon">
+                            <input type="email" id="regEmail" class="form-control" placeholder="exemplu@email.com"
+                                required>
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Telefon <span class="required">*</span></label>
+                        <div class="form-control-icon">
+                            <input type="tel" id="phone" class="form-control" placeholder="+40 7XX XXX XXX" required>
+                            <i class="fas fa-phone"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city">Oraș</label>
+                        <div class="form-control-icon">
+                            <select id="city" class="form-control">
+                                <option value="">Selectează orașul</option>
+                                <option value="bucuresti">București</option>
+                                <option value="cluj">Cluj-Napoca</option>
+                                <option value="timisoara">Timișoara</option>
+                                <option value="iasi">Iași</option>
+                                <option value="constanta">Constanța</option>
+                                <option value="brasov">Brașov</option>
+                                <option value="sibiu">Sibiu</option>
+                                <option value="oradea">Oradea</option>
+                                <option value="altul">Alt oraș</option>
+                            </select>
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="regPassword">Parolă <span class="required">*</span></label>
+                            <div class="form-control-icon">
+                                <input type="password" id="regPassword" class="form-control"
+                                    placeholder="Minim 8 caractere" required>
+                                <i class="fas fa-lock"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirmă Parola <span class="required">*</span></label>
+                            <div class="form-control-icon">
+                                <input type="password" id="confirmPassword" class="form-control"
+                                    placeholder="Repetă parola" required>
+                                <i class="fas fa-lock"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-check">
+                            <input type="checkbox" required>
+                            Accept <a href="#" style="color: var(--primary);">Termenii și Condițiile</a> platformei
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">
+                        <i class="fas fa-user-plus"></i> Creează Contul
+                    </button>
+                </form>
+
+                <div class="auth-links">
+                    Ai deja un cont? <a href="login.html">Autentifică-te</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

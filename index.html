@@ -1,0 +1,403 @@
+﻿<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FluffyPaws</title>
+    <link rel="icon" type="image/png" href="images/paw-prints-removebg-preview.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script>if (localStorage.getItem('isLoggedIn') === 'true') document.documentElement.classList.add('is-logged-in');</script>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">🐾</span>
+                <span class="logo-text">FluffyPaws</span>
+            </a>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link active">Acasă</a></li>
+                <li><a href="animals.html" class="nav-link">Animale</a></li>
+                <li><a href="success-stories.html" class="nav-link">Povești</a></li>
+                <li><a href="about.html" class="nav-link">Despre Noi</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions" id="navActions">
+                <!-- Guest View -->
+                <div id="guestActions" style="display: flex; gap: 0.5rem;">
+                    <a href="login.html" class="btn btn-outline-light btn-sm">Autentificare</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Înregistrare</a>
+                </div>
+
+                                <!-- User View -->
+                <div id="userActions" class="user-menu" style="display: none;">
+                    <div class="user-menu-trigger" id="userMenuBtn">
+                        <img id="navUserAvatar" src="https://ui-avatars.com/api/?name=User&background=ff6b6b&color=fff&size=100" alt="User" class="user-avatar">
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; color: var(--text-gray);"></i>
+                    </div>
+                    <!-- Dropdown -->
+                    <div class="user-menu-dropdown" id="userDropdown">
+                        <div style="padding: var(--space-sm) var(--space-md); text-align: center;">
+                            <strong id="navUserName" style="display:block; color: var(--text-dark);">Utilizator</strong>
+                            <small id="navUserEmail" style="color: var(--text-gray);"></small>
+                        </div>
+                        <div class="divider"></div>
+                        <a href="profile.html"><i class="fas fa-user"></i> Profilul Meu</a>
+                        <a href="profile.html#favoritesSection" id="navFavoritesLink"><i class="fas fa-heart"></i> Favorite</a>
+                        <div class="divider"></div>
+                        <a href="#" class="logout-link" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Deconectare</a>
+                    </div>
+                </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="images/temp.jpg" alt="Hero Background">
+        </div>
+        <div class="container">
+            <div class="hero-content fade-in">
+                <span class="subtitle">🐾 Platforma #1 de adopții din România</span>
+                <h1>Dă o <span>a doua șansă</span> unui suflet necuvântător</h1>
+                <h3>Fii prietenul <span class="typing"></span></h3>
+                <p class="hero-description">
+                    Fiecare animal merită o casă iubitoare. Conectăm adăposturi cu familii
+                    gata să ofere dragoste necondiționată. Începe călătoria ta de adopție astăzi.
+                </p>
+                <div class="hero-buttons">
+                    <a href="animals.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-search"></i> Descoperă Animale
+                    </a>
+                    <a href="#how-it-works" class="btn btn-outline btn-lg">
+                        <i class="fas fa-heart"></i> Cum Funcționează
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="stat-number" data-target="1250" data-suffix="+">0</div>
+                        <div class="stat-label">Animale Adoptate</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-number" data-target="850" data-suffix="+">0</div>
+                        <div class="stat-label">Familii Fericite</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-number" data-target="32">0</div>
+                        <div class="stat-label">Adăposturi Partenere</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section" id="how-it-works">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Cum <span class="highlight">Funcționează</span>?</h2>
+                <p>Procesul de adopție este simplu, transparent și plin de bucurie</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon orange">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>1. Descoperă</h3>
+                    <p>Explorează profilurile animalelor disponibile pentru adopție. Filtrează după specie, vârstă sau
+                        locație.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon blue">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>2. Aplică</h3>
+                    <p>Completează formularul de adopție cu informații despre tine și motivația ta. Procesul este simplu
+                        și rapid.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon green">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>3. Adoptă</h3>
+                    <p>După aprobare, îți vei întâlni noul prieten! Echipa noastră te va ghida pe tot parcursul
+                        procesului.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED ANIMALS -->
+    <section class="section" style="background: var(--bg-light-gray);">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Animale care așteaptă o <span class="highlight">familie</span></h2>
+                <p>Descoperă câțiva dintre prietenii noștri care visează la o casă iubitoare</p>
+            </div>
+            <div class="animals-grid" id="featuredAnimals">
+                <div style="grid-column: 1 / -1; text-align: center; color: var(--text-gray); padding: 2rem 0;">
+                    <i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Se incarca animalele...
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="animals.html" class="btn btn-outline btn-lg">
+                    Vezi toate animalele <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="section stats-section">
+        <div class="container">
+            <div class="stats-grid" id="stats-section">
+                <div class="stat-card fade-in">
+                    <div class="stat-icon">🐕</div>
+                    <div class="stat-number" data-target="820" data-suffix="+">0</div>
+                    <div class="stat-label">Câini Adoptați</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-icon">🐈</div>
+                    <div class="stat-number" data-target="430" data-suffix="+">0</div>
+                    <div class="stat-label">Pisici Adoptate</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-icon">🏠</div>
+                    <div class="stat-number" data-target="32">0</div>
+                    <div class="stat-label">Adăposturi Partenere</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-icon">❤️</div>
+                    <div class="stat-number" data-target="98" data-suffix="%">0</div>
+                    <div class="stat-label">Adopții Reușite</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Ce spun <span class="highlight">clienții</span> noștri</h2>
+                <p>Povești reale de la familii care au ales să adopte</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-in">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="quote">"Am adoptat pe Buddy acum 6 luni și nu ne putem imagina viața fără el. Procesul a
+                        fost simplu și echipa foarte profesionistă."</p>
+                    <div class="author">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            alt="Maria">
+                        <div>
+                            <div class="author-name">Maria Popescu</div>
+                            <div class="author-info">A adoptat un Golden Retriever</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="quote">"Platforma este foarte bine organizată. Am găsit pisicuța perfectă pentru familia
+                        noastră în mai puțin de o săptămână!"</p>
+                    <div class="author">
+                        <img src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?q=80&w=2352&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            alt="Andrei">
+                        <div>
+                            <div class="author-name">Andrei Ionescu</div>
+                            <div class="author-info">A adoptat o pisică Siameză</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="quote">"Recomand din suflet! Luna, cățelușa noastră, e cel mai bun lucru care ni s-a
+                        întâmplat. Mulțumim FluffyPaws!"</p>
+                    <div class="author">
+                        <img src="https://plus.unsplash.com/premium_photo-1705018500344-450a9e2d4c56?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            alt="Elena">
+                        <div>
+                            <div class="author-name">Elena Dumitrescu</div>
+                            <div class="author-info">A adoptat un Bichon</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="section"
+        style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; text-align: center;">
+        <div class="container">
+            <div class="fade-in">
+                <h2 style="color: white; font-size: 2.5rem; margin-bottom: var(--space-md);">Ești pregătit să schimbi o
+                    viață?</h2>
+                <p style="font-size: 1.15rem; opacity: 0.9; max-width: 600px; margin: 0 auto var(--space-xl);">
+                    Mii de animale te așteaptă. Fiecare adopție scrie o nouă poveste de dragoste.
+                </p>
+                <div class="hero-buttons" style="justify-content: center;">
+                    <a href="animals.html" class="btn btn-lg"
+                        style="background: white; color: var(--primary); border-color: white;">
+                        <i class="fas fa-paw"></i> Adoptă Acum
+                    </a>
+                    <a href="register.html" class="btn btn-outline btn-lg" style="border-color: white; color: white;">
+                        Creează un Cont
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY PREVIEW -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Galeria <span class="highlight">Prietenilor</span> Noștri</h2>
+                <p>Momente de fericire surprinse în adăposturile noastre partenere</p>
+            </div>
+            <div class="gallery-grid fade-in">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400&h=300&fit=crop"
+                        alt="Câini jucăuși">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=400&h=300&fit=crop"
+                        alt="Pisică curioasă">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400&h=300&fit=crop"
+                        alt="Cățeluș">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=400&h=300&fit=crop"
+                        alt="Câine fericit">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&h=300&fit=crop"
+                        alt="Pisică">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=400&h=300&fit=crop"
+                        alt="Iepuraș">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?w=400&h=300&fit=crop"
+                        alt="Câine și stăpân">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?w=400&h=300&fit=crop"
+                        alt="Cățeluș dormind">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+        <button class="close-lightbox" id="closeLightbox">&times;</button>
+        <img src="" alt="Lightbox Image" id="lightboxImg">
+    </div>
+
+        <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Rândul 1: Brand + Linkuri -->
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span>🐾</span> FluffyPaws
+                    </div>
+                    <p>Conectăm suflete necuvântătoare cu familii iubitoare din 2020. Fiecare adopție contează.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column footer-spacer" aria-hidden="true"></div>
+                <div class="footer-column footer-spacer" aria-hidden="true"></div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+40712345678"><i class="fas fa-phone"></i> +40 712 345 678</a></li>
+                        <li><a href="mailto:contact@fluffypaws.ro"><i class="fas fa-envelope"></i>
+                                contact@fluffypaws.ro</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> București, România</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Rândul 2: Hartă + Program -->
+            <div class="footer-info-row">
+
+                <div class="open-times">
+                    <div class="program-status">
+                        <h3>Magazinul este: <span id="status-program">Se verifică...</span></h3>
+                    </div>
+                    <h4>Program de lucru</h4>
+                    <ul>
+                        <li>Luni – Vineri: 08:00 – 16:00</li>
+                        <li>Sâmbătă – Duminică: 08:00 – 12:00</li>
+                    </ul>
+                </div>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d503.4922716183288!2d26.07887171913752!3d44.44993101618476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sro!2sro!4v1772448026517!5m2!1sro!2sro"
+                        width="600" height="220" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 FluffyPaws. Toate drepturile rezervate. Realizat cu ❤️ pentru animale.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/index-animals.js"></script>
+</body>
+
+</html>
+
+

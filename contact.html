@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerere de Adopție — FluffyPaws</title>
+    <link rel="icon" type="image/png" href="images/paw-prints-removebg-preview.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+<script>if(localStorage.getItem('isLoggedIn') === 'true') document.documentElement.classList.add('is-logged-in');</script>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">🐾</span>
+                <span class="logo-text">FluffyPaws</span>
+            </a>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Acasă</a></li>
+                <li><a href="animals.html" class="nav-link">Animale</a></li>
+                <li><a href="success-stories.html" class="nav-link">Povești</a></li>
+                <li><a href="about.html" class="nav-link">Despre Noi</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions" id="navActions">
+                <!-- Guest View -->
+                <div id="guestActions" style="display: flex; gap: 0.5rem;">
+                    <a href="login.html" class="btn btn-outline-light btn-sm">Autentificare</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Înregistrare</a>
+                </div>
+
+                                <!-- User View -->
+                <div id="userActions" class="user-menu" style="display: none;">
+                    <div class="user-menu-trigger" id="userMenuBtn">
+                        <img id="navUserAvatar" src="https://ui-avatars.com/api/?name=User&background=ff6b6b&color=fff&size=100" alt="User" class="user-avatar">
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; color: var(--text-gray);"></i>
+                    </div>
+                    <!-- Dropdown -->
+                    <div class="user-menu-dropdown" id="userDropdown">
+                        <div style="padding: var(--space-sm) var(--space-md); text-align: center;">
+                            <strong id="navUserName" style="display:block; color: var(--text-dark);">Utilizator</strong>
+                            <small id="navUserEmail" style="color: var(--text-gray);"></small>
+                        </div>
+                        <div class="divider"></div>
+                        <a href="profile.html"><i class="fas fa-user"></i> Profilul Meu</a>
+                        <a href="profile.html#favoritesSection" id="navFavoritesLink"><i class="fas fa-heart"></i> Favorite</a>
+                        <div class="divider"></div>
+                        <a href="#" class="logout-link" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Deconectare</a>
+                    </div>
+                </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <div class="container">
+            <h1>📝 Contact</h1>
+            <p>Vrem să te ascultăm, lasă aici un feedback personalizat</p>
+
+        </div>
+    </div>
+
+    <section class="section" style="padding-top: 0;">
+        <div class="container fade-in">
+            <div class="contact-grid">
+                <!-- Informații de Contact -->
+                <div class="contact-info-panel slide-in-left">
+                    <h3>Suntem aici pentru ei, și pentru tine!</h3>
+                    <p>Ai o întrebare, vrei să te oferi voluntar sau, pur și simplu, să ne lași un gând bun? Oricare ar
+                        fi motivul, ne bucurăm să te ascultăm!</p>
+
+                    <div class="contact-details" style="margin-top: 2rem;">
+                        <div class="contact-detail-item" style="margin-bottom: 2rem; align-items: flex-start;">
+                            <div class="contact-detail-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-detail-text">
+                                <h4>Răspuns Rapid</h4>
+                                <span
+                                    style="font-size: 0.9rem; line-height: 1.4; display: block; margin-top: 0.5rem;">Ne
+                                    străduim să răspundem tuturor mesajelor în maximum 24-48 de ore, pentru că fiecare
+                                    întrebare de-a ta e importantă pentru noi.</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-detail-item" style="align-items: flex-start;">
+                            <div class="contact-detail-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="contact-detail-text">
+                                <h4>Sprijin Comunitar</h4>
+                                <span
+                                    style="font-size: 0.9rem; line-height: 1.4; display: block; margin-top: 0.5rem;">Fiecare
+                                    mesaj și feedback ne ajută să construim o lume mai prietenoasă pentru micii noștri
+                                    prieteni necuvântători. Îți mulțumim că te implici!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formularul -->
+                <div class="contact-form-panel slide-in-right">
+                    <h3>Trimite-ne un Mesaj</h3>
+                    <p>Completează formularul de mai jos și îți vom răspunde în cel mai scurt timp posibil.</p>
+
+                    <form action="#" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Nume complet <span class="required">*</span></label>
+                            <input type="text" id="name" class="form-control" placeholder="Introdu numele tău">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Adresa de email <span class="required">*</span></label>
+                                <input type="email" id="email" class="form-control" placeholder="Adresa ta">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subiect</label>
+                                <input type="text" id="subject" class="form-control"
+                                    placeholder="Despre ce vrei să ne scrii?">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Mesajul tău <span class="required">*</span></label>
+                            <textarea name="message" id="message" class="form-control" rows="5"
+                                placeholder="Scrie aici mesajul..."></textarea>
+                        </div>
+
+                        <button class="btn btn-primary btn-lg mt-2 btn-block" type="submit" style="width: 100%;">
+                            Trimite Mesajul <i class="fas fa-paper-plane" style="margin-left: 8px;"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Rândul 1: Brand + Linkuri -->
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span>🐾</span> FluffyPaws
+                    </div>
+                    <p>Conectăm suflete necuvântătoare cu familii iubitoare din 2020. Fiecare adopție contează.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column footer-spacer" aria-hidden="true"></div>
+                <div class="footer-column footer-spacer" aria-hidden="true"></div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+40712345678"><i class="fas fa-phone"></i> +40 712 345 678</a></li>
+                        <li><a href="mailto:contact@fluffypaws.ro"><i class="fas fa-envelope"></i>
+                                contact@fluffypaws.ro</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> București, România</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Rândul 2: Hartă + Program -->
+            <div class="footer-info-row">
+
+                <div class="open-times">
+                    <div class="program-status">
+                        <h3>Magazinul este: <span id="status-program">Se verifică...</span></h3>
+                    </div>
+                    <h4>Program de lucru</h4>
+                    <ul>
+                        <li>Luni – Vineri: 08:00 – 16:00</li>
+                        <li>Sâmbătă – Duminică: 08:00 – 12:00</li>
+                    </ul>
+                </div>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d503.4922716183288!2d26.07887171913752!3d44.44993101618476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sro!2sro!4v1772448026517!5m2!1sro!2sro"
+                        width="600" height="220" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 FluffyPaws. Toate drepturile rezervate. Realizat cu ❤️ pentru animale.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
+
+
+
