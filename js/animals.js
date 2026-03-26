@@ -38,6 +38,43 @@ createApp({
         const ageLabelMap    = { baby: 'Pui (0-1 an)', young: 'Tânăr (1-3 ani)', adult: 'Adult (3-7 ani)', senior: 'Senior (7+ ani)' };
         const statusLabelMap = { available: 'Disponibil', urgent: 'Urgent!', new: 'Nou' };
         const cityLabelMap   = { bucuresti: 'București', cluj: 'Cluj-Napoca', timisoara: 'Timișoara', iasi: 'Iași', brasov: 'Brașov', sibiu: 'Sibiu' };
+        const speciesLabelMap = { dog: 'Câini', cat: 'Pisici', rabbit: 'Iepuri', bird: 'Păsări', other: 'Altele' };
+        const sizeLabelMap = { small: 'Mică', medium: 'Medie', large: 'Mare' };
+        const sexLabelMap = { M: 'Mascul', F: 'Femelă' };
+
+        const speciesOrder = ['dog', 'cat', 'rabbit', 'bird', 'other'];
+        const ageOrder = ['baby', 'young', 'adult', 'senior'];
+        const sexOrder = ['M', 'F'];
+        const sizeOrder = ['small', 'medium', 'large'];
+        const cityOrder = Object.keys(cityLabelMap);
+
+        function filterByActiveFilters(list, excludeKey) {
+            return list.filter(a => {
+                if (excludeKey !== 'species' && filterSpecies.value && a.species     !== filterSpecies.value) return false;
+                if (excludeKey !== 'age'     && filterAge.value     && a.ageCategory !== filterAge.value)     return false;
+                if (excludeKey !== 'sex'     && filterSex.value     && a.sex         !== filterSex.value)     return false;
+                if (excludeKey !== 'size'    && filterSize.value    && a.size        !== filterSize.value)    return false;
+                if (excludeKey !== 'city'    && filterCity.value    && a.city        !== filterCity.value)    return false;
+                return true;
+            });
+        }
+
+        function buildOptions(list, prop, order, labelMap) {
+            const set = new Set(list.map(item => item[prop]).filter(Boolean));
+            const options = [];
+            const seen = new Set();
+            order.forEach(value => {
+                if (set.has(value)) {
+                    options.push({ value, label: labelMap[value] || value });
+                    seen.add(value);
+                }
+            });
+            Array.from(set)
+                .filter(value => !seen.has(value))
+                .sort()
+                .forEach(value => options.push({ value, label: labelMap[value] || value }));
+            return options;
+        }
 
         // ── Fetch din Firestore (fără where — filtrăm în JS) ─────
         onMounted(async () => {
@@ -99,12 +136,69 @@ createApp({
             return list;
         });
 
+        const availableAnimals = computed(() => animals.value.filter(a => a.available !== false));
+        const speciesOptions = computed(() => buildOptions(
+            filterByActiveFilters(availableAnimals.value, 'species'),
+            'species',
+            speciesOrder,
+            speciesLabelMap
+        ));
+        const ageOptions = computed(() => buildOptions(
+            filterByActiveFilters(availableAnimals.value, 'age'),
+            'ageCategory',
+            ageOrder,
+            ageLabelMap
+        ));
+        const sexOptions = computed(() => buildOptions(
+            filterByActiveFilters(availableAnimals.value, 'sex'),
+            'sex',
+            sexOrder,
+            sexLabelMap
+        ));
+        const sizeOptions = computed(() => buildOptions(
+            filterByActiveFilters(availableAnimals.value, 'size'),
+            'size',
+            sizeOrder,
+            sizeLabelMap
+        ));
+        const cityOptions = computed(() => buildOptions(
+            filterByActiveFilters(availableAnimals.value, 'city'),
+            'city',
+            cityOrder,
+            cityLabelMap
+        ));
+
         const totalPages   = computed(() => Math.max(1, Math.ceil(filteredAnimals.value.length / perPage)));
         const pagedAnimals = computed(() => {
             const start = (currentPage.value - 1) * perPage;
             return filteredAnimals.value.slice(start, start + perPage);
         });
         const pageNumbers  = computed(() => Array.from({ length: totalPages.value }, (_, i) => i + 1));
+
+        watch([speciesOptions, ageOptions, sexOptions, sizeOptions, cityOptions], () => {
+            let changed = false;
+            if (filterSpecies.value && !speciesOptions.value.some(opt => opt.value === filterSpecies.value)) {
+                filterSpecies.value = '';
+                changed = true;
+            }
+            if (filterAge.value && !ageOptions.value.some(opt => opt.value === filterAge.value)) {
+                filterAge.value = '';
+                changed = true;
+            }
+            if (filterSex.value && !sexOptions.value.some(opt => opt.value === filterSex.value)) {
+                filterSex.value = '';
+                changed = true;
+            }
+            if (filterSize.value && !sizeOptions.value.some(opt => opt.value === filterSize.value)) {
+                filterSize.value = '';
+                changed = true;
+            }
+            if (filterCity.value && !cityOptions.value.some(opt => opt.value === filterCity.value)) {
+                filterCity.value = '';
+                changed = true;
+            }
+            if (changed) currentPage.value = 1;
+        });
 
         watch(pagedAnimals, async () => {
             await nextTick();
@@ -203,6 +297,7 @@ createApp({
         return {
             animals, loading, errorMsg,
             filterSpecies, filterAge, filterSex, filterSize, filterCity, sortBy,
+            speciesOptions, ageOptions, sexOptions, sizeOptions, cityOptions,
             currentPage, totalPages, pageNumbers, pagedAnimals, filteredAnimals,
             applyFilters, resetFilters, goToPage,
             toggleFavorite, isFavorite, statusClass, speciesIcon

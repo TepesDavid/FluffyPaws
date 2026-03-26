@@ -86,50 +86,35 @@
                         <label>Specie</label>
                         <select class="form-control" v-model="filterSpecies" @change="applyFilters">
                             <option value="">Toate</option>
-                            <option value="dog">🐕 Câini</option>
-                            <option value="cat">🐈 Pisici</option>
-                            <option value="rabbit">🐇 Iepuri</option>
-                            <option value="bird">🐦 Păsări</option>
-                            <option value="other">Altele</option>
+                            <option v-for="opt in speciesOptions" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
                         </select>
                     </div>
                     <div class="filter-group">
                         <label>Vârstă</label>
                         <select class="form-control" v-model="filterAge" @change="applyFilters">
                             <option value="">Toate</option>
-                            <option value="baby">Pui (0-1 an)</option>
-                            <option value="young">Tânăr (1-3 ani)</option>
-                            <option value="adult">Adult (3-7 ani)</option>
-                            <option value="senior">Senior (7+ ani)</option>
+                            <option v-for="opt in ageOptions" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
                         </select>
                     </div>
                     <div class="filter-group">
                         <label>Sex</label>
                         <select class="form-control" v-model="filterSex" @change="applyFilters">
                             <option value="">Toate</option>
-                            <option value="M">Mascul</option>
-                            <option value="F">Femelă</option>
+                            <option v-for="opt in sexOptions" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
                         </select>
                     </div>
                     <div class="filter-group">
                         <label>Mărime</label>
                         <select class="form-control" v-model="filterSize" @change="applyFilters">
                             <option value="">Toate</option>
-                            <option value="small">Mică</option>
-                            <option value="medium">Medie</option>
-                            <option value="large">Mare</option>
+                            <option v-for="opt in sizeOptions" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
                         </select>
                     </div>
                     <div class="filter-group">
                         <label>Oraş</label>
                         <select class="form-control" v-model="filterCity" @change="applyFilters">
                             <option value="">Toate</option>
-                            <option value="bucuresti">Bucureşti</option>
-                            <option value="cluj">Cluj-Napoca</option>
-                            <option value="timisoara">Timişoara</option>
-                            <option value="iasi">Iaşi</option>
-                            <option value="brasov">Braşov</option>
-                            <option value="sibiu">Sibiu</option>
+                            <option v-for="opt in cityOptions" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
                         </select>
                     </div>
                     <button class="btn btn-primary" @click="applyFilters">

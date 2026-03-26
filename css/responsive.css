@@ -39,6 +39,33 @@
         grid-template-columns: 1fr;
     }
 
+    .about-mission-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .about-story {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+
+    .about-story-visual {
+        min-height: 360px;
+    }
+
+    .about-team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-quotes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-cta-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-md);
+    }
+
     .team-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -294,6 +321,41 @@
     }
     .admin-charts-grid {
         grid-template-columns: 1fr;
+    }
+
+    .about-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-story-content {
+        padding: var(--space-2xl) var(--space-lg);
+    }
+
+    .about-story-values {
+        grid-template-columns: 1fr;
+    }
+
+    .about-mission-text h2 {
+        font-size: 1.9rem;
+    }
+
+    .about-team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-quotes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-story-badge,
+    .about-story-float-tag {
+        left: var(--space-md);
+        right: var(--space-md);
+        max-width: calc(100% - var(--space-xl));
+    }
+
+    .about-cta-banner {
+        padding: var(--space-xl);
     }
 
     /* Tables Mobile */
