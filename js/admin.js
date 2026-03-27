@@ -55,6 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const addAnimalForm = document.getElementById('addAnimalForm');
     const submitAnimalBtn = document.getElementById('submitAnimalBtn');
+    const addUserForm = document.getElementById('addUserForm');
+    const submitUserBtn = document.getElementById('submitUserBtn');
     if (addAnimalForm) {
         addAnimalForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -65,6 +67,77 @@ document.addEventListener('DOMContentLoaded', () => {
         submitAnimalBtn.addEventListener('click', async () => {
             await handleAddAnimal();
         });
+    }
+    if (addUserForm) {
+        addUserForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await handleAddUser();
+        });
+    }
+    if (submitUserBtn) {
+        submitUserBtn.addEventListener('click', async () => {
+            await handleAddUser();
+        });
+    }
+
+    async function handleAddUser() {
+        const firstName = getVal('adminFirstName');
+        const lastName = getVal('adminLastName');
+        const email = getVal('adminEmail');
+        const role = getVal('adminRole') || 'user';
+        const tempPassword = getVal('adminTempPassword');
+
+        if (!firstName || !lastName || !email || !tempPassword) {
+            alert('Completeaza toate campurile obligatorii.');
+            return;
+        }
+        if (tempPassword.length < 6) {
+            alert('Parola trebuie sa aiba cel putin 6 caractere.');
+            return;
+        }
+
+        let secondaryApp = null;
+        try {
+            secondaryApp = firebase.app('Secondary');
+        } catch (_) {
+            secondaryApp = firebase.initializeApp(firebaseConfig, 'Secondary');
+        }
+
+        const secondaryAuth = firebase.auth(secondaryApp);
+        const secondaryDb = firebase.firestore(secondaryApp);
+
+        try {
+            const credential = await secondaryAuth.createUserWithEmailAndPassword(email, tempPassword);
+            const uid = credential.user.uid;
+
+            const initialRole = role === 'admin' ? 'user' : role;
+            await secondaryDb.collection('users').doc(uid).set({
+                firstName,
+                lastName,
+                email,
+                phone: '',
+                city: '',
+                role: initialRole,
+                photoURL: '',
+                bio: '',
+                address: '',
+                disabled: false,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            await secondaryAuth.signOut();
+
+            if (role === 'admin') {
+                await db.collection('users').doc(uid).update({ role: 'admin' });
+            }
+
+            closeModal('addUserModal');
+            if (addUserForm) addUserForm.reset();
+            await loadUsers();
+        } catch (e) {
+            console.error('Eroare creare utilizator:', e);
+            alert('Nu s-a putut crea utilizatorul. Verifica datele sau emailul existent.');
+        }
     }
 
     async function handleAddAnimal() {
